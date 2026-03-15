@@ -24,6 +24,9 @@
       --steel: #5b8fa8;
       --teal: #2dd4bf;
       --gold: #f59e0b;
+      --rose: #3b82f6;
+      --purple: #a855f7;
+      --orange: #f97316;
     }
 
     *, *::before, *::after {
@@ -153,20 +156,30 @@
       animation-fill-mode: forwards;
     }
 
-    .card:nth-child(1) { animation-delay: 0.3s; }
+    .card:nth-child(1) { animation-delay: 0.30s; }
     .card:nth-child(2) { animation-delay: 0.38s; }
     .card:nth-child(3) { animation-delay: 0.46s; }
     .card:nth-child(4) { animation-delay: 0.54s; }
+    .card:nth-child(5) { animation-delay: 0.62s; }
+    .card:nth-child(6) { animation-delay: 0.70s; }
+    .card:nth-child(7) { animation-delay: 0.78s; }
+    .card:nth-child(8) { animation-delay: 0.86s; }
 
-    .card--indigo { border-left-color: var(--indigo); }
-    .card--steel  { border-left-color: var(--steel); }
-    .card--teal   { border-left-color: var(--teal); }
-    .card--gold   { border-left-color: var(--gold); }
+    .card--indigo  { border-left-color: var(--indigo); }
+    .card--steel   { border-left-color: var(--steel); }
+    .card--teal    { border-left-color: var(--teal); }
+    .card--gold    { border-left-color: var(--gold); }
+    .card--rose    { border-left-color: var(--rose); }
+    .card--purple  { border-left-color: var(--purple); }
+    .card--orange  { border-left-color: var(--orange); }
 
-    .card--indigo:hover { border-left-color: #818cf8; }
-    .card--steel:hover  { border-left-color: #7cb9d9; }
-    .card--teal:hover   { border-left-color: #5eead4; }
-    .card--gold:hover   { border-left-color: #fbbf24; }
+    .card--indigo:hover  { border-left-color: #818cf8; }
+    .card--steel:hover   { border-left-color: #7cb9d9; }
+    .card--teal:hover    { border-left-color: #5eead4; }
+    .card--gold:hover    { border-left-color: #fbbf24; }
+    .card--rose:hover    { border-left-color: #60a5fa; }
+    .card--purple:hover  { border-left-color: #c084fc; }
+    .card--orange:hover  { border-left-color: #fb923c; }
 
     .card-header {
       display: flex;
@@ -370,11 +383,66 @@
 
       <div class="card card--gold">
         <div class="card-header">
-          <span class="card-title">More coming</span>
+          <span class="card-title">Hospital Quality</span>
+          <span class="badge-live"><span class="dot"></span>Live</span>
         </div>
-        <p class="card-tagline">Hospital quality. Water safety. Drug interactions.</p>
-        <p class="card-desc">All public data. All free. All honest.</p>
-        <p class="card-tribe">The data exists. We're building the reader.</p>
+        <p class="card-tagline">What CMS knows about the hospital you're considering.</p>
+        <p class="card-desc">Star ratings, mortality rates, readmission rates, patient experience. Every hospital that accepts Medicare files this data.</p>
+        <p class="card-tribe">CMS tracks outcomes at every hospital. We just make it readable.</p>
+        <a class="card-link" href="https://hospitals.openprimitive.com" target="_blank" rel="noopener noreferrer">
+          Open tool
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M2 11L11 2M11 2H5M11 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="card card--rose">
+        <div class="card-header">
+          <span class="card-title">Water Safety</span>
+          <span class="badge-live"><span class="dot"></span>Live</span>
+        </div>
+        <p class="card-tagline">What's in the water at your address.</p>
+        <p class="card-desc">EPA violations and contaminant records for your water system, by zip code. Health-based violations flagged separately.</p>
+        <p class="card-tribe">EPA tracks every violation at every public water system. We just make it readable.</p>
+        <a class="card-link" href="https://water.openprimitive.com" target="_blank" rel="noopener noreferrer">
+          Open tool
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M2 11L11 2M11 2H5M11 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="card card--purple">
+        <div class="card-header">
+          <span class="card-title">Drug Effects</span>
+          <span class="badge-live"><span class="dot"></span>Live</span>
+        </div>
+        <p class="card-tagline">What patients actually reported to the FDA.</p>
+        <p class="card-desc">Adverse events from the FDA reporting system. Total reports, serious events, top reactions — straight from FAERS.</p>
+        <p class="card-tribe">The FDA receives every adverse event report. We just make it readable.</p>
+        <a class="card-link" href="https://drugs.openprimitive.com" target="_blank" rel="noopener noreferrer">
+          Open tool
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M2 11L11 2M11 2H5M11 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="card card--orange">
+        <div class="card-header">
+          <span class="card-title">Food Recalls</span>
+          <span class="badge-live"><span class="dot"></span>Live</span>
+        </div>
+        <p class="card-tagline">What the FDA pulled from shelves this week.</p>
+        <p class="card-desc">Active food recalls, updated as the FDA publishes them. Class I recalls — the serious ones — flagged prominently.</p>
+        <p class="card-tribe">The FDA publishes every recall. We just make it readable.</p>
+        <a class="card-link" href="https://recalls.openprimitive.com" target="_blank" rel="noopener noreferrer">
+          Open tool
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M2 11L11 2M11 2H5M11 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
 
     </div>
