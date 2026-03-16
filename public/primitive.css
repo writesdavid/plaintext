@@ -115,11 +115,23 @@ body {
 .op-header-right {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--dim);
   letter-spacing: 0.06em;
+}
+
+.op-header-right a {
+  color: var(--dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.op-header-right a:hover { color: var(--accent); }
+
+.op-header-sep {
+  color: var(--border-strong);
+  user-select: none;
 }
 
 /* ── Pulse dot ───────────────────────────────────── */

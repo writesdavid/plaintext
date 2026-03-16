@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open Primitive — The public record, unmediated.</title>
-  <meta name="description" content="Seven interfaces to US federal primary-source data. No AI. No summaries. The record, readable." />
+  <title>Open Primitive — The public record, readable.</title>
+  <meta name="description" content="Seven direct interfaces to US federal primary-source data. No AI. No summaries. The record, readable." />
   <meta property="og:title" content="Open Primitive" />
   <meta property="og:description" content="Public data, made readable." />
   <meta property="og:type" content="website" />
@@ -107,26 +107,8 @@
       text-align: right;
     }
 
-    /* Argument section */
-    .argument {
-      margin-bottom: 0;
-      padding-top: var(--space-2);
-    }
-
-    .argument p {
-      font-size: 17px;
-      color: var(--muted);
-      line-height: 1.75;
-      max-width: 580px;
-      margin-bottom: var(--space-5);
-    }
-
-    .argument p strong {
-      color: var(--body);
-      font-weight: 600;
-    }
-
-    .argument-link {
+    /* Hero why link */
+    .hero-why {
       display: inline-flex;
       align-items: center;
       gap: var(--space-2);
@@ -135,29 +117,16 @@
       font-weight: 500;
       color: var(--accent);
       text-decoration: none;
-      margin-top: var(--space-2);
+      margin-top: var(--space-5);
       transition: gap 0.2s, color 0.15s;
     }
-    .argument-link:hover { gap: var(--space-3); color: #8a3d21; }
-
-    /* Hero sizing */
-    .hero-num {
-      font-family: var(--font-display);
-      font-size: clamp(80px, 14vw, 140px);
-      font-weight: 800;
-      color: var(--border);
-      line-height: 1;
-      letter-spacing: -0.04em;
-      margin-bottom: var(--space-6);
-      -webkit-font-smoothing: antialiased;
-    }
+    .hero-why:hover { gap: var(--space-3); color: #8a3d21; }
 
     @media (max-width: 640px) {
       .stream { grid-template-columns: 1fr; gap: var(--space-1); }
       .stream-right { text-align: left; }
       .stream::before { left: -20px; right: -20px; }
       .stream-name { font-size: 19px; }
-      .hero-num { font-size: 72px; }
     }
   </style>
 </head>
@@ -169,23 +138,32 @@
       <a class="op-wordmark" href="/">Open Primitive</a>
       <div class="op-header-right">
         <span class="op-pulse"></span>
-        <span>7 streams active</span>
+        <span>7 primitives live</span>
+        <span class="op-header-sep">·</span>
+        <a href="/manifesto.html">Why</a>
       </div>
     </header>
 
     <section class="op-hero">
-      <div class="op-eyebrow">Seven federal datasets · Open access · No intermediaries</div>
+      <div class="op-eyebrow">Open access · No AI summaries · No intermediaries</div>
       <h1 id="h1a">Public data,</h1>
-      <h1 id="h1b" style="color: var(--muted); margin-bottom: var(--space-8);">made readable.</h1>
-      <p>
-        Federal databases are public but rarely usable.
-        These are <strong>direct interfaces</strong> to the primary record —
-        hospital outcomes, water quality, drug reports, flight performance, and more.
-        No AI summaries. No translation layer.
+      <h1 id="h1b" style="color: var(--muted);">made readable.</h1>
+      <p style="margin-top: var(--space-8);">
+        Federal agencies publish the record. The DOT tracks every flight delay.
+        The FDA logs every adverse event. CMS scores every hospital.
+        <strong>The data has always been public — the problem has been readability.</strong>
       </p>
+      <p>
+        A CSV with 47 columns isn't usable. An AI summary of it isn't the data.
+        These are direct interfaces to the primary source — built so the record is
+        something you can actually read, search, and act on.
+      </p>
+      <a class="hero-why" href="/manifesto.html">
+        Why this exists →
+      </a>
     </section>
 
-    <div class="op-label">Data streams</div>
+    <div class="op-label" style="margin-top: var(--space-16);">The primitives</div>
 
     <div class="streams">
 
@@ -195,7 +173,7 @@
             <span class="stream-id">01</span>
             <span class="stream-name">Flying</span>
           </div>
-          <div class="stream-desc">On-time performance ranked across 8 US carriers. Live data on who's actually running on schedule.</div>
+          <div class="stream-desc">On-time performance ranked across 8 US carriers. The DOT track record — not what your airline advertises, what they actually filed.</div>
           <div class="op-bar-track"><div class="op-bar-fill"></div></div>
           <div class="stream-source">AviationStack · 8 US carriers · live</div>
         </div>
@@ -211,7 +189,7 @@
             <span class="stream-id">02</span>
             <span class="stream-name">Cars</span>
           </div>
-          <div class="stream-desc">NHTSA crash test scores, active recalls, and owner complaints by make, model, and year.</div>
+          <div class="stream-desc">NHTSA crash test scores, active recalls, and owner complaints by make, model, and year. The test, not the car review.</div>
           <div class="op-bar-track"><div class="op-bar-fill"></div></div>
           <div class="stream-source">NHTSA · 50,000+ vehicles rated · continuous</div>
         </div>
@@ -227,7 +205,7 @@
             <span class="stream-id">03</span>
             <span class="stream-name">Health</span>
           </div>
-          <div class="stream-desc">Study counts and publication volume for any health claim. What the research actually says — not a summary of it.</div>
+          <div class="stream-desc">Study volume for any health claim, from 35 million indexed citations. What PubMed says — not what a supplement label says.</div>
           <div class="op-bar-track"><div class="op-bar-fill"></div></div>
           <div class="stream-source">PubMed / MEDLINE · 35M+ citations · updated daily</div>
         </div>
@@ -243,7 +221,7 @@
             <span class="stream-id">04</span>
             <span class="stream-name">Hospitals</span>
           </div>
-          <div class="stream-desc">Mortality rates, readmission rates, and patient experience scores for every Medicare hospital in the US.</div>
+          <div class="stream-desc">Mortality rates, readmission rates, and patient experience scores for every Medicare hospital. What the hospital reported to CMS.</div>
           <div class="op-bar-track"><div class="op-bar-fill"></div></div>
           <div class="stream-source">CMS Care Compare · 6,000+ hospitals · updated monthly</div>
         </div>
@@ -259,7 +237,7 @@
             <span class="stream-id">05</span>
             <span class="stream-name">Water</span>
           </div>
-          <div class="stream-desc">Contaminant violations and health-based infractions at every public water system. Search by zip code.</div>
+          <div class="stream-desc">Contaminant violations and health-based infractions at every public water system. What the EPA found at your ZIP code.</div>
           <div class="op-bar-track"><div class="op-bar-fill"></div></div>
           <div class="stream-source">EPA SDWIS · 50,000+ systems · updated quarterly</div>
         </div>
@@ -275,7 +253,7 @@
             <span class="stream-id">06</span>
             <span class="stream-name">Drugs</span>
           </div>
-          <div class="stream-desc">Adverse event reports filed with the FDA for any drug. Serious events, deaths, top reactions — from the source.</div>
+          <div class="stream-desc">Adverse event reports for any drug — serious events, deaths, top reactions. What patients and doctors actually filed with the FDA.</div>
           <div class="op-bar-track"><div class="op-bar-fill"></div></div>
           <div class="stream-source">FDA FAERS · 15M+ reports · updated quarterly</div>
         </div>
@@ -291,7 +269,7 @@
             <span class="stream-id">07</span>
             <span class="stream-name">Food</span>
           </div>
-          <div class="stream-desc">Active food recall campaigns classified by FDA severity. Class I is a serious health risk.</div>
+          <div class="stream-desc">Active FDA food recalls, classified by severity. Class I is a serious health risk. What the FDA pulled — not a news story about it.</div>
           <div class="op-bar-track"><div class="op-bar-fill"></div></div>
           <div class="stream-source">FDA Enforcement · continuous updates</div>
         </div>
@@ -301,24 +279,6 @@
         </div>
       </a>
 
-    </div>
-
-    <div class="op-label" style="margin-top: 0;">The argument</div>
-
-    <div class="argument">
-      <p>
-        Federal agencies publish the data they collect — flight delays, drug adverse events,
-        hospital outcomes, water violations. The problem has never been access.
-        It's been <strong>readability</strong>.
-      </p>
-      <p>
-        A CSV with 47 columns isn't usable. An AI summary of that CSV isn't the data.
-        Open Primitive is a set of interfaces to the primary record — built so the data is
-        something you can actually read, search, and act on.
-      </p>
-      <a class="argument-link" href="/manifesto.html">
-        Read the full case →
-      </a>
     </div>
 
     <footer class="op-footer">
