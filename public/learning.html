@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning — Open Primitive</title>
+  <meta name="description" content="A research hub on primary sources, AI translation, and what gets lost in the middle. Curated by David Hamilton." />
+  <link rel="stylesheet" href="/primitive.css" />
+  <style>
+    .learning-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 var(--space-12) 96px;
+    }
+
+    .learning-nav {
+      padding: var(--space-8) 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: var(--space-16);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .learning-header {
+      padding: var(--space-16) 0 var(--space-12);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: var(--space-16);
+    }
+
+    .learning-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: var(--space-5);
+    }
+
+    .learning-subtitle {
+      font-size: 19px;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* Section headers */
+    .reading-section {
+      margin-bottom: var(--space-16);
+    }
+
+    .reading-section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Reading item */
+    .reading-item {
+      padding: var(--space-7) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .reading-item:first-of-type {
+      padding-top: 0;
+    }
+
+    .reading-item-top {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-3);
+      margin-bottom: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    .reading-item-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .reading-item-title:hover {
+      color: var(--accent);
+    }
+
+    .reading-item-source {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .reading-item-note {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: var(--space-2);
+    }
+
+    .reading-item-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      margin-top: var(--space-3);
+    }
+
+    /* Empty state */
+    .reading-empty {
+      padding: var(--space-10) 0;
+      color: var(--dim);
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      .learning-page { padding: 0 var(--space-6) 64px; }
+      .learning-header h1 { font-size: 32px; }
+      .reading-item-top { flex-direction: column; gap: var(--space-1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="learning-page">
+
+    <nav class="learning-nav">
+      <a href="/" style="font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.06em;">← Open Primitive</a>
+    </nav>
+
+    <header class="learning-header">
+      <div style="font-family: var(--font-mono); font-size: 10px; color: var(--dim); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: var(--space-4);">Research hub</div>
+      <h1>Learning</h1>
+      <p class="learning-subtitle">
+        Not all public data benefits from AI translation. Some records get clearer when a model reads them for you. Others lose something critical in the pass-through. This is where I put the work that helps you tell the difference.
+      </p>
+    </header>
+
+    <div class="reading-section">
+      <div class="reading-section-label">Translate through AI</div>
+      <p class="reading-empty">Work coming here — sources that gain clarity through AI translation.</p>
+    </div>
+
+    <div class="reading-section">
+      <div class="reading-section-label">Read the source directly</div>
+      <p class="reading-empty">Work coming here — sources where you should go to the primary record yourself.</p>
+    </div>
+
+    <div class="reading-section">
+      <div class="reading-section-label">On the infrastructure</div>
+      <p class="reading-empty">Work coming here — how this gets built and why.</p>
+    </div>
+
+    <footer style="padding-top: var(--space-10); border-top: 1px solid var(--border);">
+      <p style="font-family: var(--font-mono); font-size: 11px; color: var(--dim); letter-spacing: 0.06em;">Open Primitive · David Hamilton</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
