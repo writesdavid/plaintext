@@ -45,11 +45,11 @@
     /* Section headers */
     .body-text h2 {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--dim);
+      color: var(--muted);
       margin: var(--space-16) 0 var(--space-6);
       display: flex;
       align-items: center;
@@ -116,13 +116,13 @@
     .data-table th {
       text-align: left;
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--dim);
+      color: var(--muted);
       padding: var(--space-2) var(--space-4) var(--space-2) 0;
-      border-bottom: 1.5px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
     .data-table td {
@@ -145,7 +145,7 @@
 
     .data-table td:last-child {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       white-space: nowrap;
     }
 
@@ -221,7 +221,7 @@
 
     .manifesto-primitive-links a:hover {
       border-color: var(--accent);
-      color: #8a3d21;
+      color: var(--accent-warm);
     }
 
     /* Footer */
@@ -238,9 +238,9 @@
 
     .manifesto-footer-text {
       font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--dim);
-      letter-spacing: 0.1em;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
@@ -273,8 +273,7 @@
 
     <header class="manifesto-header">
       <div class="op-eyebrow">Why this exists</div>
-      <h1>The Case Against<br>the Translation Layer</h1>
-      <p class="manifesto-subtitle">On search, AI, and what gets lost when someone else summarizes the record for you.</p>
+      <h1>On search, AI, and what gets lost when someone else summarizes the record for you.</h1>
     </header>
 
     <div class="body-text">
@@ -305,11 +304,11 @@
 
       <h2>What AI did</h2>
 
-      <p>AI is a useful tool. Worth saying plainly. Large language models can synthesize vast amounts of text, explain complex topics accessibly, and reduce the time it takes to get oriented on an unfamiliar subject. These are genuine capabilities, and this project has no argument with them.</p>
+      <p>AI is a useful tool. Large language models synthesize vast amounts of text, explain complex topics, and cut the time it takes to get oriented on an unfamiliar subject. These are real capabilities.</p>
 
-      <p>The specific problem is different. Fewer people are reading primary sources than they were ten years ago. More are outsourcing judgment — not just information retrieval, but the act of deciding what something means — to an interface that was trained to sound confident. The concern isn't that AI is wrong. It's that it's right enough, often enough, that people have stopped checking.</p>
+      <p>The problem is that it's right often enough that people have stopped checking the primary source. Fewer people are reading primary records than they were ten years ago. More are outsourcing judgment — not just information retrieval, but the act of deciding what something means — to an interface trained to sound confident.</p>
 
-      <p>The mechanism is worth understanding. Large language models trained on human feedback — RLHF, as described by Ouyang et al. in 2022<sup>2</sup> — are optimized to generate responses that humans rate as helpful and authoritative. In practice, humans rate confident answers higher than uncertain ones, even when the uncertainty is warranted. The training signal rewards fluency and completion, not citation.</p>
+      <p>Large language models trained on human feedback — RLHF, as described by Ouyang et al. in 2022<sup>2</sup> — are optimized to generate responses that humans rate as helpful and authoritative. In practice, humans rate confident answers higher than uncertain ones, even when the uncertainty is warranted. The training signal rewards fluency and completion, not citation.</p>
 
       <p>The result is a system that presents conclusions without showing its work. Ask an AI whether creatine supplementation improves athletic performance. It will tell you yes, with some qualifications. It will not show you the 53,000 studies in PubMed, the meta-analyses that found effect sizes ranging from negligible to significant depending on the population, the three large RCTs that contradict the headline finding, or the funding sources of the most-cited papers.</p>
 
@@ -319,7 +318,7 @@
         <p>An AI translation isn't neutral. Something in the original doesn't survive the trip.</p>
       </div>
 
-      <p>This is not a criticism of the technology. It is a description of what the technology is optimized for. RLHF-trained language models are extraordinarily good at synthesizing text into fluent, structured summaries. That capability is the right tool for many tasks. It is the wrong tool when the requirement is fidelity to primary sources, because synthesis by definition involves loss — and because the habit of outsourcing judgment is easier to build than it is to break.</p>
+      <p>RLHF-trained language models are extraordinarily good at synthesizing text into fluent, structured summaries. That capability fits many tasks. It breaks down when fidelity to the primary source is required, because synthesis involves loss — and because the habit of outsourcing judgment is easier to build than it is to break.</p>
 
       <h2>The translational gap</h2>
 
@@ -405,11 +404,11 @@
 
       <p>The seven were chosen because these domains share three properties no other category of federal data has in combination: the stakes are high enough to change a decision, the gap between published record and public awareness is wide enough to matter, and the data is specific enough to actually answer the question.</p>
 
-      <p>The other criterion was independence. These interfaces have no incentive other than the record. No airline benefits from you reading the DOT delay database. No pharmaceutical company benefits from you reading the FAERS adverse event reports. No hospital system benefits from you reading the CMS outcomes data. The commercial incentive runs in exactly the opposite direction — which is precisely why the interface hasn't been built.</p>
+      <p>The other criterion was independence. Airlines, pharmaceutical companies, and hospital systems all have the opposite commercial incentive from the one that built these tools. That is why the interfaces haven't existed until now.</p>
 
       <h2>What Open Primitive does</h2>
 
-      <p>Open Primitive is not an AI. It does not summarize. It does not interpret. It connects to primary-source federal databases and renders their output in a form a person can read and act on.</p>
+      <p>Open Primitive connects directly to primary-source federal databases and renders their output in a form a person can read and act on. No summaries. No interpretation. The record, rendered.</p>
 
       <p>The design constraint is strict: every number shown must be traceable to a specific filing, a specific database record, a specific row in a government dataset. If the underlying data is ambiguous, the interface shows the ambiguity. If the data is missing, it says so.</p>
 
@@ -417,13 +416,13 @@
 
       <p>More will follow. Hospital quality scores from CMS HCAHPS. Water quality data from EPA ECHO. Drug interaction data from the FDA Adverse Event Reporting System. The pattern is the same in each case: the record exists, the interface doesn't, and the decisions people make without it are worse than they need to be.</p>
 
-      <h2>What it doesn't do</h2>
+      <h2>The boundary</h2>
 
-      <p>Open Primitive does not tell you what to decide. It shows you what the record says. The difference matters.</p>
+      <p>Open Primitive shows you what the record says. The decision belongs to you.</p>
 
       <p>A tool that tells you "Alaska Airlines is the safest choice" has made a judgment about how to weight on-time performance against cancellation rates against your specific route and departure time. That judgment belongs to you. A tool that shows you the DOT data, the FAA live status, and the BTS track record for each carrier gives you what you need to make it.</p>
 
-      <p>The goal is not to replace judgment. It is to restore the precondition for it: access to the actual record, in a form you can read.</p>
+      <p>The goal is access to the actual record, in a form you can read.</p>
 
       <h2>Open questions</h2>
 
@@ -431,7 +430,7 @@
 
       <p>These problems are worth naming because they are not decorative. They are the reasons no one has built this before. The commercial incentive runs in the opposite direction: AI answers are cheaper to produce, easier to scale, and more satisfying to users in the short term than raw data interfaces. The correct answer to "is this car safe" is not a star rating. It is a 90-minute reading session. Most people will not do that. Open Primitive tries to make it possible in five minutes.</p>
 
-      <p><strong>Whether that is enough is an open question.</strong> The goal is to make the primary record accessible enough that more people use it, more often, for the decisions where it matters most.</p>
+      <p>The goal is to make the primary record accessible enough that more people use it, more often, for the decisions where it matters most.</p>
 
     </div>
 

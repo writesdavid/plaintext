@@ -5,34 +5,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Open Primitive — The public record, readable.</title>
-  <meta name="description" content="Seven direct interfaces to US federal primary-source data. No AI. No summaries. The record, readable." />
+  <meta name="description" content="13 direct interfaces to US federal primary-source data. No AI. No summaries. The record, readable." />
   <meta property="og:title" content="Open Primitive" />
   <meta property="og:description" content="Public data, made readable." />
   <meta property="og:type" content="website" />
   <link rel="stylesheet" href="/primitive.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <style>
-    /* Homepage-specific styles */
+    /* ── Streams ──────────────────────────────────── */
+
+    .territory {
+      margin-bottom: var(--space-12);
+    }
 
     .streams {
-      margin-bottom: var(--space-16);
+      border-top: 1px solid var(--border);
     }
 
     .stream {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: start;
-      gap: 0 var(--space-6);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-6);
       padding: var(--space-6) 0;
       border-bottom: 1px solid var(--border);
       text-decoration: none;
       color: inherit;
       position: relative;
-      transition: background 0.15s;
-      cursor: pointer;
     }
-
-    .stream:first-child { border-top: 1px solid var(--border); }
 
     .stream::before {
       content: '';
@@ -49,67 +48,42 @@
     .stream:hover .stream-name { color: var(--accent); }
     .stream:hover .stream-arrow { color: var(--accent); transform: translateX(4px); }
 
-    .stream-left { grid-column: 1; }
-    .stream-right { grid-column: 2; text-align: right; padding-top: 2px; }
-
-    .stream-id-row {
-      display: flex;
-      align-items: baseline;
-      gap: var(--space-3);
-      margin-bottom: var(--space-2);
-    }
-
-    .stream-id {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--dim);
-      letter-spacing: 0.14em;
-    }
+    .stream-content { flex: 1; min-width: 0; }
 
     .stream-name {
       font-family: var(--font-display);
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 600;
       color: var(--text);
       letter-spacing: -0.01em;
-      line-height: 1.1;
+      line-height: 1.2;
+      margin-bottom: var(--space-2);
       transition: color 0.15s;
     }
 
     .stream-desc {
-      font-size: 15px;
+      font-size: 16px;
       color: var(--muted);
       line-height: 1.55;
-      max-width: 500px;
-      margin-bottom: var(--space-3);
+      margin-bottom: var(--space-2);
     }
 
     .stream-source {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 12px;
       color: var(--dim);
-      letter-spacing: 0.08em;
-    }
-
-    .stream-meta {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--dim);
-      line-height: 1.5;
       letter-spacing: 0.06em;
-      text-align: right;
     }
 
     .stream-arrow {
       font-size: 18px;
-      color: var(--border-strong);
+      color: var(--dim);
       transition: color 0.15s, transform 0.15s;
-      margin-top: var(--space-2);
-      display: block;
-      text-align: right;
+      flex-shrink: 0;
+      padding-top: 2px;
     }
 
-    /* Hero why link */
+    /* Hero link */
     .hero-why {
       display: inline-flex;
       align-items: center;
@@ -122,130 +96,11 @@
       margin-top: var(--space-5);
       transition: gap 0.2s, color 0.15s;
     }
-    .hero-why:hover { gap: var(--space-3); color: #8a3d21; }
+    .hero-why:hover { gap: var(--space-3); color: var(--accent-warm); }
 
     @media (max-width: 640px) {
-      .stream { grid-template-columns: 1fr; gap: var(--space-1); }
-      .stream-right { text-align: left; }
       .stream::before { left: -20px; right: -20px; }
-      .stream-name { font-size: 19px; }
-    }
-
-    /* Three aims */
-    .three-aims {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      border: 1px solid var(--border);
-      margin-top: var(--space-16);
-      margin-bottom: var(--space-16);
-    }
-
-    .aim {
-      padding: var(--space-8) var(--space-7);
-      border-right: 1px solid var(--border);
-    }
-
-    .aim:last-child { border-right: none; }
-
-    .aim-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: var(--space-3);
-    }
-
-    .aim-headline {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.01em;
-      line-height: 1.15;
-      margin-bottom: var(--space-3);
-    }
-
-    .aim-desc {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.65;
-      margin-bottom: var(--space-5);
-    }
-
-    .aim-link {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .aim-link:hover { text-decoration: underline; }
-
-    @media (max-width: 640px) {
-      .three-aims { grid-template-columns: 1fr; }
-      .aim { border-right: none; border-bottom: 1px solid var(--border); }
-      .aim:last-child { border-bottom: none; }
-    }
-
-    /* Intel map */
-    .intel-map-wrap {
-      margin-top: var(--space-4);
-      margin-bottom: var(--space-16);
-    }
-
-    .intel-svg {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .intel-map-mobile {
-      display: none;
-    }
-
-    @media (max-width: 640px) {
-      .intel-svg { display: none; }
-      .intel-map-mobile {
-        display: flex;
-        flex-direction: column;
-        border: 1px solid var(--border);
-      }
-      .imm-row {
-        padding: var(--space-6) var(--space-5);
-        border-bottom: 1px solid var(--border);
-      }
-      .imm-row:last-child { border-bottom: none; }
-      .imm-territory {
-        font-family: var(--font-display);
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text);
-        letter-spacing: -0.01em;
-        margin-bottom: var(--space-1);
-      }
-      .imm-q {
-        font-size: 13px;
-        color: var(--muted);
-        margin-bottom: var(--space-3);
-      }
-      .imm-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-2);
-      }
-      .imm-tags span {
-        font-family: var(--font-mono);
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--accent);
-        border: 1px solid var(--border);
-        padding: 2px 8px;
-        background: var(--bg-card);
-      }
+      .stream-name { font-size: 18px; }
     }
   </style>
 </head>
@@ -257,7 +112,7 @@
       <a class="op-wordmark" href="/">Open Primitive</a>
       <div class="op-header-right">
         <span class="op-pulse"></span>
-        <span>7 primitives live</span>
+        <span>13 primitives live</span>
         <span class="op-header-sep">·</span>
         <a href="/for-agents.html">For agents</a>
         <span class="op-header-sep">·</span>
@@ -266,260 +121,126 @@
     </header>
 
     <section class="op-hero">
-      <div class="op-eyebrow">Data designed · Primary source · No other incentives</div>
-      <h1 id="h1a">Public data,</h1>
-      <h1 id="h1b" style="color: var(--muted);">made readable.</h1>
-      <p style="margin-top: var(--space-8);">
-        AI is trained to sound confident. Search is optimized for clicks.
-        <strong>These were built for neither — seven direct interfaces to what the federal record actually says.</strong>
+      <h1>The public record,<br>readable.</h1>
+      <p style="margin-top: var(--space-6);">
+        13 interfaces to US federal primary-source data. No AI. No summaries.
       </p>
       <a class="hero-why" href="/manifesto.html">
         Why this exists →
       </a>
     </section>
 
-    <div class="three-aims">
-      <div class="aim">
-        <div class="aim-label">For humans</div>
-        <div class="aim-headline">The record, readable.</div>
-        <div class="aim-desc">Seven direct interfaces to federal primary-source data. What the government actually filed — not a news story about it, not an AI summary of it.</div>
-        <a class="aim-link" href="#primitives">See the tools →</a>
-      </div>
-      <div class="aim">
-        <div class="aim-label">For agents</div>
-        <div class="aim-headline">Primary source as API.</div>
-        <div class="aim-desc">Every primitive is a structured endpoint. Feed your LLM or workflow clean government data — no scraping, no hallucination, no middleman.</div>
-        <a class="aim-link" href="/for-agents.html">API reference →</a>
-      </div>
-      <div class="aim">
-        <div class="aim-label">For learning</div>
-        <div class="aim-headline">Know what to translate.</div>
-        <div class="aim-desc">Not all public data benefits from AI. We track which sources gain clarity through translation — and which ones you should still read raw.</div>
-        <a class="aim-link" href="/learning.html">Go to the hub →</a>
+    <section style="margin-bottom: var(--space-12); padding: var(--space-6) 0; border-bottom: 1px solid var(--border);">
+      <div class="op-label">The API</div>
+      <p style="font-size: 16px; color: var(--muted); line-height: 1.55; margin-top: var(--space-3);">
+        13 federal data domains. One unified
+        <a href="https://api.openprimitive.com" style="color: var(--accent); text-decoration: none; font-weight: 500;">API</a>.
+        MCP server. A2A agent card. Cross-domain safety scores.
+      </p>
+      <p style="font-family: var(--font-mono); font-size: 14px; color: var(--accent); margin-top: var(--space-4);">
+        <span id="agent-stat">—</span>% of our traffic is machines
+      </p>
+    </section>
+
+    <script>
+      fetch('https://api.openprimitive.com/v1/stats')
+        .then(r => r.json())
+        .then(d => { if (d.agentPercent != null) document.getElementById('agent-stat').textContent = d.agentPercent; })
+        .catch(() => {});
+    </script>
+
+    <!-- Move -->
+    <div class="territory">
+      <div class="op-label">Move</div>
+      <div class="streams">
+
+        <a class="stream" href="https://flights.openprimitive.com" target="_blank">
+          <div class="stream-content">
+            <div class="stream-name">Flying</div>
+            <div class="stream-desc">On-time performance across 8 US carriers, ranked by DOT filing.</div>
+            <div class="stream-source">AviationStack · 8 US carriers · live</div>
+          </div>
+          <span class="stream-arrow">→</span>
+        </a>
+
+        <a class="stream" href="https://cars.openprimitive.com" target="_blank">
+          <div class="stream-content">
+            <div class="stream-name">Cars</div>
+            <div class="stream-desc">NHTSA crash test scores, active recalls, and owner complaints by make, model, and year.</div>
+            <div class="stream-source">NHTSA · 50,000+ vehicles rated · continuous</div>
+          </div>
+          <span class="stream-arrow">→</span>
+        </a>
+
       </div>
     </div>
 
-    <div class="op-label" style="margin-top: var(--space-16);">Why these seven</div>
-    <div class="intel-map-wrap">
+    <!-- Sustain -->
+    <div class="territory">
+      <div class="op-label">Sustain</div>
+      <div class="streams">
 
-      <!-- Mobile fallback -->
-      <div class="intel-map-mobile">
-        <div class="imm-row">
-          <div class="imm-territory">Move</div>
-          <div class="imm-q">Is this journey safe?</div>
-          <div class="imm-tags"><span>Flying</span><span>Cars</span></div>
-        </div>
-        <div class="imm-row">
-          <div class="imm-territory">Sustain</div>
-          <div class="imm-q">Is this safe to consume?</div>
-          <div class="imm-tags"><span>Food</span><span>Water</span></div>
-        </div>
-        <div class="imm-row">
-          <div class="imm-territory">Heal</div>
-          <div class="imm-q">Can I trust what heals me?</div>
-          <div class="imm-tags"><span>Health</span><span>Hospitals</span><span>Drugs</span></div>
-        </div>
+        <a class="stream" href="https://recalls.openprimitive.com" target="_blank">
+          <div class="stream-content">
+            <div class="stream-name">Food</div>
+            <div class="stream-desc">Active FDA food recalls classified by severity, updated continuously.</div>
+            <div class="stream-source">FDA Enforcement · continuous updates</div>
+          </div>
+          <span class="stream-arrow">→</span>
+        </a>
+
+        <a class="stream" href="https://water.openprimitive.com" target="_blank">
+          <div class="stream-content">
+            <div class="stream-name">Water</div>
+            <div class="stream-desc">Contaminant violations at every public water system, searchable by ZIP code.</div>
+            <div class="stream-source">EPA SDWIS · 50,000+ systems · updated quarterly</div>
+          </div>
+          <span class="stream-arrow">→</span>
+        </a>
+
       </div>
-
-      <!-- Desktop SVG diagram -->
-      <svg id="intel-svg" class="intel-svg" viewBox="0 0 660 385" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        <defs>
-          <style>
-            .svgt-name { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 700; fill: #1c1712; }
-            .svgt-q    { font-family: 'DM Sans', sans-serif; font-size: 11px; fill: #6b5c4e; letter-spacing: 0.02em; }
-            .svgp-name { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; fill: #1c1712; }
-            .svgp-src  { font-family: 'DM Sans', sans-serif; font-size: 10px; fill: #9a8878; letter-spacing: 0.05em; }
-            .svgedge   { stroke: #c5b9ac; stroke-width: 1; fill: none; }
-            .svgt-dot  { fill: #9e4929; }
-            .svgp-dot  { fill: #3d2f26; }
-          </style>
-        </defs>
-
-        <!-- Lines drawn by animation -->
-        <g id="lines-group">
-          <path class="svgedge" d="M 179 75 L 490 50" />
-          <path class="svgedge" d="M 179 75 L 490 100" />
-          <path class="svgedge" d="M 179 183 L 490 162" />
-          <path class="svgedge" d="M 179 183 L 490 210" />
-          <path class="svgedge" d="M 179 306 L 490 268" />
-          <path class="svgedge" d="M 179 306 L 490 305" />
-          <path class="svgedge" d="M 179 306 L 490 345" />
-        </g>
-
-        <!-- Territory anchors -->
-        <g class="t-group" id="tg-move">
-          <text class="svgt-name" x="18" y="70">Move</text>
-          <text class="svgt-q"    x="18" y="88">Is this journey safe?</text>
-          <circle class="svgt-dot" cx="175" cy="75" r="4" />
-        </g>
-        <g class="t-group" id="tg-sustain">
-          <text class="svgt-name" x="18" y="178">Sustain</text>
-          <text class="svgt-q"    x="18" y="196">Is this safe to consume?</text>
-          <circle class="svgt-dot" cx="175" cy="183" r="4" />
-        </g>
-        <g class="t-group" id="tg-heal">
-          <text class="svgt-name" x="18" y="297">Heal</text>
-          <text class="svgt-q"    x="18" y="315">Can I trust what heals me?</text>
-          <circle class="svgt-dot" cx="175" cy="306" r="4" />
-        </g>
-
-        <!-- Primitive nodes -->
-        <g class="p-group" id="pg-flying">
-          <circle class="svgp-dot" cx="490" cy="50" r="3" />
-          <text class="svgp-name" x="502" y="54">Flying</text>
-          <text class="svgp-src"  x="502" y="67">DOT · on-time performance</text>
-        </g>
-        <g class="p-group" id="pg-cars">
-          <circle class="svgp-dot" cx="490" cy="100" r="3" />
-          <text class="svgp-name" x="502" y="104">Cars</text>
-          <text class="svgp-src"  x="502" y="117">NHTSA · crash ratings</text>
-        </g>
-        <g class="p-group" id="pg-food">
-          <circle class="svgp-dot" cx="490" cy="162" r="3" />
-          <text class="svgp-name" x="502" y="166">Food</text>
-          <text class="svgp-src"  x="502" y="179">FDA · active recalls</text>
-        </g>
-        <g class="p-group" id="pg-water">
-          <circle class="svgp-dot" cx="490" cy="210" r="3" />
-          <text class="svgp-name" x="502" y="214">Water</text>
-          <text class="svgp-src"  x="502" y="227">EPA · violations</text>
-        </g>
-        <g class="p-group" id="pg-health">
-          <circle class="svgp-dot" cx="490" cy="268" r="3" />
-          <text class="svgp-name" x="502" y="272">Health</text>
-          <text class="svgp-src"  x="502" y="285">PubMed · 35M+ studies</text>
-        </g>
-        <g class="p-group" id="pg-hospitals">
-          <circle class="svgp-dot" cx="490" cy="305" r="3" />
-          <text class="svgp-name" x="502" y="309">Hospitals</text>
-          <text class="svgp-src"  x="502" y="322">CMS · outcomes data</text>
-        </g>
-        <g class="p-group" id="pg-drugs">
-          <circle class="svgp-dot" cx="490" cy="345" r="3" />
-          <text class="svgp-name" x="502" y="349">Drugs</text>
-          <text class="svgp-src"  x="502" y="362">FDA FAERS · adverse events</text>
-        </g>
-      </svg>
-
     </div>
 
-    <div class="op-label" id="primitives">The primitives</div>
+    <!-- Heal -->
+    <div class="territory">
+      <div class="op-label">Heal</div>
+      <div class="streams">
 
-    <div class="streams">
-
-      <a class="stream" href="https://flights.openprimitive.com" target="_blank" data-fill="88" data-delay="0">
-        <div class="stream-left">
-          <div class="stream-id-row">
-            <span class="stream-id">01</span>
-            <span class="stream-name">Flying</span>
+        <a class="stream" href="https://health.openprimitive.com" target="_blank">
+          <div class="stream-content">
+            <div class="stream-name">Health</div>
+            <div class="stream-desc">Study volume for any health claim from 35 million PubMed citations.</div>
+            <div class="stream-source">PubMed / MEDLINE · 35M+ citations · updated daily</div>
           </div>
-          <div class="stream-desc">On-time performance ranked across 8 US carriers. The DOT track record — not what your airline advertises, what they actually filed.</div>
-          <div class="op-bar-track"><div class="op-bar-fill"></div></div>
-          <div class="stream-source">AviationStack · 8 US carriers · live</div>
-        </div>
-        <div class="stream-right">
-          <div class="stream-meta">Live<br>rankings</div>
           <span class="stream-arrow">→</span>
-        </div>
-      </a>
+        </a>
 
-      <a class="stream" href="https://cars.openprimitive.com" target="_blank" data-fill="82" data-delay="130">
-        <div class="stream-left">
-          <div class="stream-id-row">
-            <span class="stream-id">02</span>
-            <span class="stream-name">Cars</span>
+        <a class="stream" href="https://hospitals.openprimitive.com" target="_blank">
+          <div class="stream-content">
+            <div class="stream-name">Hospitals</div>
+            <div class="stream-desc">Mortality rates, readmission rates, and patient experience scores for every Medicare hospital.</div>
+            <div class="stream-source">CMS Care Compare · 6,000+ hospitals · updated monthly</div>
           </div>
-          <div class="stream-desc">NHTSA crash test scores, active recalls, and owner complaints by make, model, and year. The test, not the car review.</div>
-          <div class="op-bar-track"><div class="op-bar-fill"></div></div>
-          <div class="stream-source">NHTSA · 50,000+ vehicles rated · continuous</div>
-        </div>
-        <div class="stream-right">
-          <div class="stream-meta">50,000+<br>vehicles</div>
           <span class="stream-arrow">→</span>
-        </div>
-      </a>
+        </a>
 
-      <a class="stream" href="https://health.openprimitive.com" target="_blank" data-fill="96" data-delay="260">
-        <div class="stream-left">
-          <div class="stream-id-row">
-            <span class="stream-id">03</span>
-            <span class="stream-name">Health</span>
+        <a class="stream" href="https://drugs.openprimitive.com" target="_blank">
+          <div class="stream-content">
+            <div class="stream-name">Drugs</div>
+            <div class="stream-desc">Serious events, deaths, and top reactions reported to FDA FAERS for any drug.</div>
+            <div class="stream-source">FDA FAERS · 15M+ reports · updated quarterly</div>
           </div>
-          <div class="stream-desc">Study volume for any health claim, from 35 million indexed citations. What PubMed says — not what a supplement label says.</div>
-          <div class="op-bar-track"><div class="op-bar-fill"></div></div>
-          <div class="stream-source">PubMed / MEDLINE · 35M+ citations · updated daily</div>
-        </div>
-        <div class="stream-right">
-          <div class="stream-meta">35M+<br>studies</div>
           <span class="stream-arrow">→</span>
-        </div>
-      </a>
+        </a>
 
-      <a class="stream" href="https://hospitals.openprimitive.com" target="_blank" data-fill="85" data-delay="390">
-        <div class="stream-left">
-          <div class="stream-id-row">
-            <span class="stream-id">04</span>
-            <span class="stream-name">Hospitals</span>
-          </div>
-          <div class="stream-desc">Mortality rates, readmission rates, and patient experience scores for every Medicare hospital. What the hospital reported to CMS.</div>
-          <div class="op-bar-track"><div class="op-bar-fill"></div></div>
-          <div class="stream-source">CMS Care Compare · 6,000+ hospitals · updated monthly</div>
-        </div>
-        <div class="stream-right">
-          <div class="stream-meta">6,000+<br>hospitals</div>
-          <span class="stream-arrow">→</span>
-        </div>
-      </a>
-
-      <a class="stream" href="https://water.openprimitive.com" target="_blank" data-fill="71" data-delay="520">
-        <div class="stream-left">
-          <div class="stream-id-row">
-            <span class="stream-id">05</span>
-            <span class="stream-name">Water</span>
-          </div>
-          <div class="stream-desc">Contaminant violations and health-based infractions at every public water system. What the EPA found at your ZIP code.</div>
-          <div class="op-bar-track"><div class="op-bar-fill"></div></div>
-          <div class="stream-source">EPA SDWIS · 50,000+ systems · updated quarterly</div>
-        </div>
-        <div class="stream-right">
-          <div class="stream-meta">50,000+<br>systems</div>
-          <span class="stream-arrow">→</span>
-        </div>
-      </a>
-
-      <a class="stream" href="https://drugs.openprimitive.com" target="_blank" data-fill="93" data-delay="650">
-        <div class="stream-left">
-          <div class="stream-id-row">
-            <span class="stream-id">06</span>
-            <span class="stream-name">Drugs</span>
-          </div>
-          <div class="stream-desc">Adverse event reports for any drug — serious events, deaths, top reactions. What patients and doctors actually filed with the FDA.</div>
-          <div class="op-bar-track"><div class="op-bar-fill"></div></div>
-          <div class="stream-source">FDA FAERS · 15M+ reports · updated quarterly</div>
-        </div>
-        <div class="stream-right">
-          <div class="stream-meta">15M+<br>reports</div>
-          <span class="stream-arrow">→</span>
-        </div>
-      </a>
-
-      <a class="stream" href="https://recalls.openprimitive.com" target="_blank" data-fill="78" data-delay="780">
-        <div class="stream-left">
-          <div class="stream-id-row">
-            <span class="stream-id">07</span>
-            <span class="stream-name">Food</span>
-          </div>
-          <div class="stream-desc">Active FDA food recalls, classified by severity. Class I is a serious health risk. What the FDA pulled — not a news story about it.</div>
-          <div class="op-bar-track"><div class="op-bar-fill"></div></div>
-          <div class="stream-source">FDA Enforcement · continuous updates</div>
-        </div>
-        <div class="stream-right">
-          <div class="stream-meta">Class I<br>tracked</div>
-          <span class="stream-arrow">→</span>
-        </div>
-      </a>
-
+      </div>
     </div>
+
+    <section style="text-align: center; padding: var(--space-8) var(--space-4);">
+      <p style="color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--space-2);">Built by</p>
+      <p style="color: var(--text); font-family: var(--font-display); font-size: 1.1rem;">David Hamilton</p>
+      <p style="color: var(--body); font-size: 0.9rem;">Content engineering and AI infrastructure at Block.</p>
+    </section>
 
     <footer class="op-footer">
       <span class="op-footer-text">Open Primitive · David Hamilton</span>
@@ -527,106 +248,6 @@
     </footer>
 
   </div>
-
-  <script>
-    // Scramble effect
-    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    function scramble(el, duration, delay) {
-      const original = el.textContent;
-      setTimeout(() => {
-        const start = Date.now();
-        const run = () => {
-          const p = Math.min((Date.now() - start) / duration, 1);
-          const resolved = Math.floor(p * original.length);
-          let out = '';
-          for (let i = 0; i < original.length; i++) {
-            const c = original[i];
-            if (i < resolved || c === ' ' || c === ',' || c === '.') out += c;
-            else out += CHARS[Math.floor(Math.random() * CHARS.length)];
-          }
-          el.textContent = out;
-          if (p < 1) requestAnimationFrame(run);
-          else el.textContent = original;
-        };
-        requestAnimationFrame(run);
-      }, delay);
-    }
-
-    // Fill bars
-    function fillBars() {
-      document.querySelectorAll('.stream').forEach(stream => {
-        const fill = +stream.dataset.fill;
-        const delay = +stream.dataset.delay;
-        const bar = stream.querySelector('.op-bar-fill');
-        if (bar) setTimeout(() => { bar.style.width = fill + '%'; }, delay + 500);
-      });
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      scramble(document.getElementById('h1a'), 900, 400);
-      scramble(document.getElementById('h1b'), 800, 800);
-      fillBars();
-      initIntelMap();
-    });
-
-    // Intel map: animated line draw + node reveal
-    function initIntelMap() {
-      const svgEl = document.getElementById('intel-svg');
-      if (!svgEl || typeof anime === 'undefined') return;
-
-      // Init lines: set dasharray to path length, dashoffset = length (invisible)
-      svgEl.querySelectorAll('#lines-group path').forEach(path => {
-        const len = path.getTotalLength();
-        path.style.strokeDasharray = len;
-        path.style.strokeDashoffset = len;
-      });
-
-      // Init groups: invisible
-      svgEl.querySelectorAll('.t-group, .p-group').forEach(g => {
-        g.style.opacity = 0;
-      });
-
-      let played = false;
-      function play() {
-        if (played) return;
-        played = true;
-        anime.timeline()
-          // 1. Territory anchors slide in
-          .add({
-            targets: svgEl.querySelectorAll('.t-group'),
-            opacity: [0, 1],
-            translateX: [-14, 0],
-            duration: 520,
-            delay: anime.stagger(190),
-            easing: 'easeOutCubic',
-          })
-          // 2. Lines draw left-to-right
-          .add({
-            targets: svgEl.querySelectorAll('#lines-group path'),
-            strokeDashoffset: [anime.setDashoffset, 0],
-            duration: 560,
-            delay: anime.stagger(75),
-            easing: 'easeInOutSine',
-          }, '-=320')
-          // 3. Primitive nodes appear
-          .add({
-            targets: svgEl.querySelectorAll('.p-group'),
-            opacity: [0, 1],
-            translateX: [10, 0],
-            duration: 380,
-            delay: anime.stagger(55),
-            easing: 'easeOutCubic',
-          }, '-=380');
-      }
-
-      // Trigger on scroll into view
-      const observer = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) { play(); observer.disconnect(); }
-      }, { threshold: 0.25 });
-      observer.observe(svgEl);
-    }
-  </script>
 
 </body>
 </html>
