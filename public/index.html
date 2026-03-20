@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open Primitive Protocol — The data layer of the agent internet</title>
-  <meta name="description" content="A standard for how data providers make their data agent-consumable, verifiable, and discoverable. 16 federal data domains. One protocol." />
-  <meta property="og:title" content="Open Primitive Protocol" />
-  <meta property="og:description" content="The data layer of the agent internet." />
+  <title>Open Primitive Protocol — v0.1.0</title>
+  <meta name="description" content="OPP defines a response envelope for structured, verifiable data exchange between data providers and AI agents. Version 0.1.0." />
+  <meta property="og:title" content="Open Primitive Protocol v0.1.0" />
+  <meta property="og:description" content="Response envelope specification for structured, verifiable data exchange between data providers and AI agents." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://openprimitive.com" />
   <script type="application/ld+json">
   [
     {
@@ -15,150 +16,199 @@
       "@type": "Organization",
       "name": "Open Primitive",
       "url": "https://openprimitive.com",
-      "description": "The Open Primitive Protocol. A standard for agent-consumable, verifiable, discoverable data.",
-      "founder": { "@type": "Person", "name": "David Hamilton" }
+      "description": "Open Primitive Protocol. A response envelope specification for structured, verifiable data exchange between data providers and AI agents.",
+      "sameAs": ["https://github.com/writesdavid"]
     },
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Open Primitive Protocol",
-      "url": "https://openprimitive.com"
+      "@type": "WebAPI",
+      "name": "Open Primitive API",
+      "url": "https://api.openprimitive.com",
+      "documentation": "https://api.openprimitive.com/openapi.json",
+      "provider": {
+        "@type": "Organization",
+        "name": "Open Primitive"
+      },
+      "termsOfService": "https://openprimitive.com/terms",
+      "description": "Reference implementation of the Open Primitive Protocol. 16 US federal data domains across 11 agencies."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "DataCatalog",
+      "name": "Open Primitive Federal Data Catalog",
+      "url": "https://api.openprimitive.com",
+      "provider": {
+        "@type": "Organization",
+        "name": "Open Primitive"
+      },
+      "description": "16 US federal data domains served through a standardized protocol envelope with provenance, freshness, confidence, and Ed25519 verification.",
+      "dataset": [
+        {"@type": "Dataset", "name": "Flights", "description": "Airline on-time performance and delay data", "creator": {"@type": "Organization", "name": "BTS / FAA"}},
+        {"@type": "Dataset", "name": "Vehicle Recalls", "description": "NHTSA vehicle recall and complaint records", "creator": {"@type": "Organization", "name": "NHTSA"}},
+        {"@type": "Dataset", "name": "Food Recalls", "description": "FDA food recall enforcement reports", "creator": {"@type": "Organization", "name": "FDA"}},
+        {"@type": "Dataset", "name": "Water Safety", "description": "EPA Safe Drinking Water Information System violations", "creator": {"@type": "Organization", "name": "EPA"}},
+        {"@type": "Dataset", "name": "Health Claims", "description": "PubMed clinical evidence for health supplement claims", "creator": {"@type": "Organization", "name": "NLM / PubMed"}},
+        {"@type": "Dataset", "name": "Hospital Quality", "description": "CMS Hospital Compare ratings and measures", "creator": {"@type": "Organization", "name": "CMS"}},
+        {"@type": "Dataset", "name": "Drug Adverse Effects", "description": "FDA FAERS adverse event reports", "creator": {"@type": "Organization", "name": "FDA"}},
+        {"@type": "Dataset", "name": "Nursing Home Quality", "description": "CMS Nursing Home Compare inspection and penalty data", "creator": {"@type": "Organization", "name": "CMS"}},
+        {"@type": "Dataset", "name": "Clinical Trials", "description": "ClinicalTrials.gov trial registry", "creator": {"@type": "Organization", "name": "NLM"}},
+        {"@type": "Dataset", "name": "Air Quality", "description": "EPA Air Quality System monitoring data", "creator": {"@type": "Organization", "name": "EPA"}},
+        {"@type": "Dataset", "name": "Consumer Complaints", "description": "CFPB consumer complaint database", "creator": {"@type": "Organization", "name": "CFPB"}},
+        {"@type": "Dataset", "name": "Bank Failures", "description": "FDIC failed bank records", "creator": {"@type": "Organization", "name": "FDIC"}},
+        {"@type": "Dataset", "name": "Product Recalls", "description": "CPSC consumer product recall data", "creator": {"@type": "Organization", "name": "CPSC"}},
+        {"@type": "Dataset", "name": "Workplace Safety", "description": "OSHA inspection and violation records", "creator": {"@type": "Organization", "name": "OSHA"}},
+        {"@type": "Dataset", "name": "Drug Labels", "description": "FDA DailyMed structured product labeling", "creator": {"@type": "Organization", "name": "FDA"}},
+        {"@type": "Dataset", "name": "Food Inspections", "description": "USDA FSIS meat and poultry inspection results", "creator": {"@type": "Organization", "name": "USDA"}}
+      ]
     }
   ]
   </script>
   <link rel="stylesheet" href="/primitive.css" />
   <style>
-    .protocol-section {
-      margin-bottom: var(--space-12);
-    }
-
-    .protocol-section h2 {
+    h1 {
       font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 600;
+      font-size: 32px;
+      font-weight: 700;
       color: var(--text);
       letter-spacing: -0.02em;
-      margin-bottom: var(--space-5);
-    }
-
-    .protocol-section p {
-      font-size: 17px;
-      color: var(--body);
-      line-height: 1.65;
-      margin-bottom: var(--space-4);
-    }
-
-    .component {
-      padding: var(--space-6) 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .component:first-child {
-      border-top: 1px solid var(--border);
-    }
-
-    .component-name {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: var(--space-2);
-    }
-
-    .component-path {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--accent);
       margin-bottom: var(--space-3);
     }
 
-    .component-desc {
-      font-size: 16px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .domain-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-5);
-    }
-
-    .domain-item {
-      font-size: 15px;
+    .spec-intro {
+      font-size: 17px;
       color: var(--body);
-      padding: var(--space-3) var(--space-4);
-      border: 1px solid var(--border);
-      border-radius: 4px;
+      line-height: 1.6;
+      margin-bottom: var(--space-12);
+      max-width: 720px;
     }
 
-    .domain-item span {
-      display: block;
+    .spec-intro code {
       font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--dim);
-      margin-top: var(--space-1);
-      letter-spacing: 0.04em;
-    }
-
-    .agent-features {
-      border-top: 1px solid var(--border);
-    }
-
-    .agent-feature {
-      display: flex;
-      align-items: baseline;
-      gap: var(--space-4);
-      padding: var(--space-4) 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .agent-feature-name {
-      font-family: var(--font-mono);
-      font-size: 14px;
-      color: var(--accent);
-      white-space: nowrap;
-      min-width: 200px;
-    }
-
-    .agent-feature-desc {
       font-size: 15px;
-      color: var(--muted);
+      color: var(--accent);
+      background: var(--accent-bg);
+      padding: 1px 5px;
     }
 
-    .vision-text {
+    .spec-section {
+      margin-bottom: var(--space-16);
+    }
+
+    .spec-section h2 {
       font-family: var(--font-display);
       font-size: 22px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text);
-      line-height: 1.5;
       letter-spacing: -0.01em;
+      margin-bottom: var(--space-5);
     }
 
-    .footer-links {
+    .spec-section > p {
+      font-size: 15px;
+      color: var(--body);
+      line-height: 1.6;
+      margin-bottom: var(--space-5);
+      max-width: 720px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-bottom: var(--space-4);
+    }
+
+    thead {
+      text-align: left;
+    }
+
+    th {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 2px solid var(--border-strong);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border);
+      color: var(--body);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      background: var(--accent-bg);
+      padding: 1px 5px;
+      white-space: nowrap;
+    }
+
+    td.mono {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .table-wrap table {
+      margin-bottom: 0;
+    }
+
+    .table-wrap td,
+    .table-wrap th {
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .gap-note {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--dim);
+    }
+
+    .completeness-high { color: var(--ok); }
+    .completeness-mid { color: var(--warn); }
+    .completeness-low { color: var(--danger); }
+
+    .links-row {
       display: flex;
-      gap: var(--space-5);
+      gap: var(--space-6);
       flex-wrap: wrap;
-      margin-top: var(--space-4);
     }
 
-    .footer-links a {
+    .links-row a {
+      font-family: var(--font-mono);
       font-size: 14px;
       color: var(--accent);
       text-decoration: none;
       font-weight: 500;
     }
 
-    .footer-links a:hover {
+    .links-row a:hover {
       color: var(--accent-warm);
     }
 
     @media (max-width: 640px) {
-      .protocol-section h2 { font-size: 22px; }
-      .agent-feature { flex-direction: column; gap: var(--space-2); }
-      .agent-feature-name { min-width: 0; }
-      .vision-text { font-size: 19px; }
+      h1 { font-size: 26px; }
+      .spec-section h2 { font-size: 19px; }
+      table { font-size: 13px; }
+      th, td { padding: var(--space-2) var(--space-3); }
     }
   </style>
 </head>
@@ -170,138 +220,378 @@
       <a class="op-wordmark" href="/">Open Primitive</a>
       <div class="op-header-right">
         <span class="op-pulse"></span>
-        <span>Protocol</span>
+        <span>v0.1.0</span>
         <span class="op-header-sep">&middot;</span>
         <a href="https://api.openprimitive.com">API</a>
         <span class="op-header-sep">&middot;</span>
-        <a href="/for-agents.html">For agents</a>
+        <a href="/for-agents.html">Agents</a>
         <span class="op-header-sep">&middot;</span>
-        <a href="/manifesto.html">Why</a>
+        <a href="https://github.com/writesdavid">GitHub</a>
       </div>
     </header>
 
-    <section class="op-hero">
-      <p style="font-family: var(--font-mono); font-size: 13px; color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: var(--space-4);">The data layer of the agent internet</p>
-      <h1>Open Primitive<br>Protocol</h1>
-      <p style="margin-top: var(--space-6); font-size: 18px; color: var(--body); line-height: 1.6; max-width: 640px;">
-        A standard for how data providers make their data agent-consumable, verifiable, and discoverable.
-      </p>
-    </section>
+    <div style="padding-top: var(--space-10);">
 
-    <!-- THE PROBLEM -->
-    <section class="protocol-section">
-      <h2>The problem</h2>
-      <p>
-        Agents get data naked. No provenance. No freshness guarantee. No confidence score. No license metadata. Every response is a JSON blob with no way to know where it came from, how old it is, or whether to trust it.
-      </p>
-      <p>
-        The agent internet is missing its data envelope.
-      </p>
-    </section>
-
-    <!-- THE PROTOCOL -->
-    <section class="protocol-section">
-      <h2>The protocol</h2>
-      <p>Three components. Each one solves a piece the agent internet does not have yet.</p>
-
-      <div class="component">
-        <div class="component-name">Manifest</div>
-        <div class="component-path">/.well-known/opp.json</div>
-        <div class="component-desc">Providers declare what data they serve, how fresh it is, and how to verify it. One file. Any domain. Agents discover capabilities before they make a single request.</div>
-      </div>
-
-      <div class="component">
-        <div class="component-name">Response envelope</div>
-        <div class="component-path">Every response, every time</div>
-        <div class="component-desc">Provenance, confidence score, citation chain, and an Ed25519 signature. The data carries its own trust. No external lookup required.</div>
-      </div>
-
-      <div class="component">
-        <div class="component-name">Query endpoint</div>
-        <div class="component-path">/v1/query</div>
-        <div class="component-desc">One standardized interface any agent can call. Structured parameters in, enveloped data out. No bespoke integration per provider.</div>
-      </div>
-    </section>
-
-    <!-- REFERENCE IMPLEMENTATION -->
-    <section class="protocol-section">
-      <h2>Reference implementation</h2>
-      <p>
-        We built it first. 16 federal data domains across 11 US agencies. The API at <a href="https://api.openprimitive.com" style="color: var(--accent); text-decoration: none; font-weight: 500;">api.openprimitive.com</a> is the reference implementation of OPP.
+      <h1>Open Primitive Protocol</h1>
+      <p class="spec-intro">
+        OPP defines a response envelope for structured, verifiable data exchange between data providers and AI agents. Version 0.1.0.
       </p>
 
-      <div class="domain-grid">
-        <div class="domain-item">Flights<span>BTS / FAA</span></div>
-        <div class="domain-item">Cars<span>NHTSA</span></div>
-        <div class="domain-item">Food recalls<span>FDA</span></div>
-        <div class="domain-item">Water safety<span>EPA SDWIS</span></div>
-        <div class="domain-item">Health claims<span>PubMed</span></div>
-        <div class="domain-item">Hospitals<span>CMS</span></div>
-        <div class="domain-item">Drug effects<span>FDA FAERS</span></div>
-        <div class="domain-item">Nursing homes<span>CMS</span></div>
-        <div class="domain-item">Clinical trials<span>ClinicalTrials.gov</span></div>
-        <div class="domain-item">Air quality<span>EPA AQS</span></div>
-        <div class="domain-item">Consumer complaints<span>CFPB</span></div>
-        <div class="domain-item">Bank failures<span>FDIC</span></div>
-        <div class="domain-item">Product recalls<span>CPSC</span></div>
-        <div class="domain-item">Workplace safety<span>OSHA</span></div>
-        <div class="domain-item">Drug labels<span>FDA DailyMed</span></div>
-        <div class="domain-item">Food inspections<span>USDA FSIS</span></div>
-      </div>
-    </section>
+      <!-- PROTOCOL COMPONENTS -->
+      <section class="spec-section">
+        <h2>Protocol Components</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Location</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">Manifest</td>
+                <td><code>/.well-known/opp.json</code></td>
+                <td>Provider declares domains, freshness schedule, and public key. Agents discover capabilities before making requests.</td>
+              </tr>
+              <tr>
+                <td class="mono">Envelope</td>
+                <td>Every response</td>
+                <td>Wraps data with <code>domain</code>, <code>source</code>, <code>freshness</code>, <code>confidence</code>, <code>citations</code>, and <code>proof</code> fields.</td>
+              </tr>
+              <tr>
+                <td class="mono">Verification</td>
+                <td>Ed25519 signature</td>
+                <td>Agents verify data integrity and provider identity. Public key published in manifest.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-    <!-- FOR AGENTS -->
-    <section class="protocol-section">
-      <h2>For agents</h2>
-      <p>Every integration path an agent needs. Pick one or use all of them.</p>
+      <!-- REFERENCE IMPLEMENTATION -->
+      <section class="spec-section">
+        <h2>Reference Implementation</h2>
+        <p><code>api.openprimitive.com</code> serves 16 US federal data domains across 11 agencies.</p>
 
-      <div class="agent-features">
-        <div class="agent-feature">
-          <div class="agent-feature-name">MCP server</div>
-          <div class="agent-feature-desc">13 tools. Drop into Claude, Cursor, or any MCP-compatible client.</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Domain</th>
+                <th>Endpoint</th>
+                <th>Source Agency</th>
+                <th>Freshness</th>
+                <th>Completeness</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">Flights</td>
+                <td><code>/v1/flights</code></td>
+                <td>BTS / FAA</td>
+                <td>Daily (FAA), Quarterly (BTS)</td>
+                <td class="completeness-mid">Partial -- BTS Jan-Oct 2024</td>
+              </tr>
+              <tr>
+                <td class="mono">Vehicle Recalls</td>
+                <td><code>/v1/cars</code></td>
+                <td>NHTSA</td>
+                <td>Daily</td>
+                <td class="completeness-high">Full catalog</td>
+              </tr>
+              <tr>
+                <td class="mono">Food Recalls</td>
+                <td><code>/v1/food-recalls</code></td>
+                <td>FDA</td>
+                <td>Weekly</td>
+                <td class="completeness-high">Full enforcement reports</td>
+              </tr>
+              <tr>
+                <td class="mono">Water Safety</td>
+                <td><code>/v1/water</code></td>
+                <td>EPA SDWIS</td>
+                <td>Quarterly</td>
+                <td class="completeness-mid">Active violations only</td>
+              </tr>
+              <tr>
+                <td class="mono">Health Claims</td>
+                <td><code>/v1/health</code></td>
+                <td>NLM / PubMed</td>
+                <td>On-demand</td>
+                <td class="completeness-high">Full PubMed index</td>
+              </tr>
+              <tr>
+                <td class="mono">Hospital Quality</td>
+                <td><code>/v1/hospitals</code></td>
+                <td>CMS</td>
+                <td>Quarterly</td>
+                <td class="completeness-high">All Medicare-certified</td>
+              </tr>
+              <tr>
+                <td class="mono">Drug Effects</td>
+                <td><code>/v1/drugs</code></td>
+                <td>FDA FAERS</td>
+                <td>Quarterly</td>
+                <td class="completeness-high">Full FAERS database</td>
+              </tr>
+              <tr>
+                <td class="mono">Nursing Homes</td>
+                <td><code>/v1/nursing-homes</code></td>
+                <td>CMS</td>
+                <td>Monthly</td>
+                <td class="completeness-high">All Medicare/Medicaid-certified</td>
+              </tr>
+              <tr>
+                <td class="mono">Clinical Trials</td>
+                <td><code>/v1/trials</code></td>
+                <td>ClinicalTrials.gov</td>
+                <td>On-demand</td>
+                <td class="completeness-high">Full registry</td>
+              </tr>
+              <tr>
+                <td class="mono">Air Quality</td>
+                <td><code>/v1/air</code></td>
+                <td>EPA AQS</td>
+                <td>Hourly</td>
+                <td class="completeness-mid">Monitored sites only</td>
+              </tr>
+              <tr>
+                <td class="mono">Consumer Complaints</td>
+                <td><code>/v1/complaints</code></td>
+                <td>CFPB</td>
+                <td>Daily</td>
+                <td class="completeness-high">Full complaint database</td>
+              </tr>
+              <tr>
+                <td class="mono">Bank Failures</td>
+                <td><code>/v1/banks</code></td>
+                <td>FDIC</td>
+                <td>Weekly</td>
+                <td class="completeness-high">All failures since 2000</td>
+              </tr>
+              <tr>
+                <td class="mono">Product Recalls</td>
+                <td><code>/v1/products</code></td>
+                <td>CPSC</td>
+                <td>Daily</td>
+                <td class="completeness-high">Full recall database</td>
+              </tr>
+              <tr>
+                <td class="mono">Workplace Safety</td>
+                <td><code>/v1/workplace</code></td>
+                <td>OSHA</td>
+                <td>Quarterly</td>
+                <td class="completeness-mid">Inspections with violations</td>
+              </tr>
+              <tr>
+                <td class="mono">Drug Labels</td>
+                <td><code>/v1/drug-labels</code></td>
+                <td>FDA DailyMed</td>
+                <td>Daily</td>
+                <td class="completeness-high">Full SPL database</td>
+              </tr>
+              <tr>
+                <td class="mono">Food Inspections</td>
+                <td><code>/v1/food-inspections</code></td>
+                <td>USDA FSIS</td>
+                <td>Monthly</td>
+                <td class="completeness-mid">FSIS-regulated facilities</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="agent-feature">
-          <div class="agent-feature-name">A2A agent card</div>
-          <div class="agent-feature-desc">13 skills. Google A2A protocol for agent-to-agent discovery.</div>
-        </div>
-        <div class="agent-feature">
-          <div class="agent-feature-name">llms.txt + llms-full.txt</div>
-          <div class="agent-feature-desc">LLM-readable documentation at the root. Full API spec included.</div>
-        </div>
-        <div class="agent-feature">
-          <div class="agent-feature-name">/v1/ask</div>
-          <div class="agent-feature-desc">Natural language routing. Ask a question, get the right domain and data back.</div>
-        </div>
-        <div class="agent-feature">
-          <div class="agent-feature-name">Citation-ready responses</div>
-          <div class="agent-feature-desc">Every response includes source URL, agency name, and retrieval timestamp.</div>
-        </div>
-        <div class="agent-feature">
-          <div class="agent-feature-name">Reasoning hints</div>
-          <div class="agent-feature-desc">Every response carries context an LLM can use to explain the data.</div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- THE VISION -->
-    <section class="protocol-section" style="margin-bottom: var(--space-8);">
-      <h2>The vision</h2>
-      <p class="vision-text">
-        Google organized information for humans. Open Primitive organizes data for agents.
-      </p>
-      <p>
-        The protocol is open. Any data provider can implement it. Federal, state, international, commercial. One envelope. One discovery mechanism. One trust chain.
-      </p>
-    </section>
+      <!-- DATA QUALITY AND LIMITATIONS -->
+      <section class="spec-section">
+        <h2>Data Quality and Limitations</h2>
+        <p>Agents calibrate trust using this table. Completeness reflects what the API returns relative to what the source agency publishes.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Domain</th>
+                <th>Methodology</th>
+                <th>Completeness</th>
+                <th>Known Gaps</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">Flights</td>
+                <td>BTS T-100 bundled + FAA NAS XML + Open-Meteo weather</td>
+                <td class="completeness-mid">Partial</td>
+                <td class="gap-note">BTS data covers Jan-Oct 2024 only. FAA XML parsed via regex; silent failure returns default. No automated BTS refresh.</td>
+              </tr>
+              <tr>
+                <td class="mono">Vehicle Recalls</td>
+                <td>NHTSA Recalls API, real-time</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">None known.</td>
+              </tr>
+              <tr>
+                <td class="mono">Food Recalls</td>
+                <td>FDA openFDA enforcement endpoint</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">Voluntary recalls may lag 24-48h from announcement.</td>
+              </tr>
+              <tr>
+                <td class="mono">Water Safety</td>
+                <td>EPA SDWIS federal reporting system</td>
+                <td class="completeness-mid">Partial</td>
+                <td class="gap-note">Covers federally-reported violations. State-only violations excluded. Primacy agency data may differ.</td>
+              </tr>
+              <tr>
+                <td class="mono">Health Claims</td>
+                <td>PubMed search + abstract analysis</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">Evidence scoring is heuristic. No full-text analysis; abstract-only.</td>
+              </tr>
+              <tr>
+                <td class="mono">Hospital Quality</td>
+                <td>CMS Hospital Compare datasets</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">Ratings lag 3-6 months from measurement period. VA/DoD hospitals excluded.</td>
+              </tr>
+              <tr>
+                <td class="mono">Drug Effects</td>
+                <td>FDA FAERS quarterly data files</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">FAERS contains duplicates and unverified reports. Reporting bias toward serious events.</td>
+              </tr>
+              <tr>
+                <td class="mono">Nursing Homes</td>
+                <td>CMS Nursing Home Compare</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">Star ratings updated monthly. Inspection data can lag 2-4 weeks.</td>
+              </tr>
+              <tr>
+                <td class="mono">Clinical Trials</td>
+                <td>ClinicalTrials.gov API v2</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">Registration is required but compliance varies. Results posting often delayed.</td>
+              </tr>
+              <tr>
+                <td class="mono">Air Quality</td>
+                <td>EPA AQS + AirNow current conditions</td>
+                <td class="completeness-mid">Partial</td>
+                <td class="gap-note">Covers EPA-monitored sites. Rural and tribal areas underrepresented.</td>
+              </tr>
+              <tr>
+                <td class="mono">Consumer Complaints</td>
+                <td>CFPB complaint database API</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">Company responses are self-reported. Narrative text redacted in many records.</td>
+              </tr>
+              <tr>
+                <td class="mono">Bank Failures</td>
+                <td>FDIC BankFind API</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">Historical records complete. Active bank data from FDIC quarterly filings.</td>
+              </tr>
+              <tr>
+                <td class="mono">Product Recalls</td>
+                <td>CPSC Recalls API</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">Voluntary recalls may appear before formal CPSC action. Images not always available.</td>
+              </tr>
+              <tr>
+                <td class="mono">Workplace Safety</td>
+                <td>OSHA inspection data API</td>
+                <td class="completeness-mid">Partial</td>
+                <td class="gap-note">State-plan states report with varying lag. Covers inspections with violations only.</td>
+              </tr>
+              <tr>
+                <td class="mono">Drug Labels</td>
+                <td>FDA DailyMed SPL files</td>
+                <td class="completeness-high">High</td>
+                <td class="gap-note">OTC drug labels less consistently structured than Rx. Discontinued products may persist.</td>
+              </tr>
+              <tr>
+                <td class="mono">Food Inspections</td>
+                <td>USDA FSIS inspection data</td>
+                <td class="completeness-mid">Partial</td>
+                <td class="gap-note">Covers FSIS-regulated meat, poultry, egg facilities. Non-FSIS food facilities (FDA jurisdiction) excluded.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- INTEGRATION -->
+      <section class="spec-section">
+        <h2>Integration</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Endpoint / Command</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">MCP</td>
+                <td><code>npx open-primitive-mcp</code></td>
+                <td>13 tools. Compatible with Claude, Cursor, and MCP-compatible clients.</td>
+              </tr>
+              <tr>
+                <td class="mono">REST</td>
+                <td><code>api.openprimitive.com/v1/{domain}</code></td>
+                <td>Structured query with envelope response. All 16 domains.</td>
+              </tr>
+              <tr>
+                <td class="mono">Natural language</td>
+                <td><code>api.openprimitive.com/v1/ask?q=</code></td>
+                <td>Routes natural language questions to the correct domain and returns enveloped data.</td>
+              </tr>
+              <tr>
+                <td class="mono">Discovery</td>
+                <td><code>/.well-known/opp.json</code></td>
+                <td>Protocol manifest. Declares domains, freshness, verification key.</td>
+              </tr>
+              <tr>
+                <td class="mono">LLM docs</td>
+                <td><code>/llms.txt</code></td>
+                <td>LLM-readable documentation. <code>/llms-full.txt</code> includes full API spec.</td>
+              </tr>
+              <tr>
+                <td class="mono">OpenAPI</td>
+                <td><code>/openapi.json</code></td>
+                <td>Machine-readable API specification.</td>
+              </tr>
+              <tr>
+                <td class="mono">A2A</td>
+                <td><code>/.well-known/agent.json</code></td>
+                <td>Google A2A agent card. 13 skills for agent-to-agent discovery.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- LINKS -->
+      <section class="spec-section" style="margin-bottom: var(--space-8);">
+        <h2>Links</h2>
+        <div class="links-row">
+          <a href="https://api.openprimitive.com/.well-known/opp.json">Spec</a>
+          <a href="https://api.openprimitive.com">API</a>
+          <a href="/for-agents.html">For Agents</a>
+          <a href="https://api.openprimitive.com/openapi.json">OpenAPI</a>
+          <a href="https://api.openprimitive.com/llms.txt">llms.txt</a>
+          <a href="https://github.com/writesdavid">GitHub</a>
+        </div>
+      </section>
+
+    </div>
 
     <footer class="op-footer">
-      <span class="op-footer-text">Open Primitive Protocol &middot; David Hamilton</span>
-      <div class="footer-links">
-        <a href="https://api.openprimitive.com">api.openprimitive.com</a>
-        <a href="/for-agents.html">For agents</a>
-        <a href="/manifesto.html">Manifesto</a>
-        <a href="https://github.com/writesdavid">GitHub</a>
-      </div>
+      <span class="op-footer-text">Open Primitive Protocol &middot; v0.1.0</span>
     </footer>
 
   </div>
