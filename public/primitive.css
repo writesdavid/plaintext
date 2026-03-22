@@ -1,22 +1,26 @@
 /*
   Open Primitive — Design System
   Light · Clear · Primary source
+  v2.0 — dark mode, code blocks, prose, better tables
 */
 
 :root {
   /* Backgrounds */
-  --bg:            #f9f8f6;   /* warm off-white */
-  --bg-card:       #ffffff;   /* white */
+  --bg:            #f9f8f6;
+  --bg-card:       #ffffff;
   --bg-hover:      rgba(192, 64, 16, 0.05);
+  --bg-subtle:     #f4f2ef;
+  --bg-code:       #1c1917;
+  --bg-code-inline: rgba(192, 64, 16, 0.07);
 
   /* Text */
-  --text:          #111110;   /* near-black        ~18:1 on --bg */
-  --body:          #3a3836;   /* dark warm gray     ~9:1 */
-  --muted:         #595654;   /* medium gray        ~6:1 */
-  --dim:           #7a7876;   /* lighter gray       ~4.5:1 — HIG AA floor */
+  --text:          #111110;
+  --body:          #3a3836;
+  --muted:         #595654;
+  --dim:           #7a7876;
 
   /* Accent */
-  --accent:        #c04010;   /* deep orange        ~5:1 on --bg */
+  --accent:        #c04010;
   --accent-warm:   #9a3008;
   --accent-bg:     rgba(192, 64, 16, 0.07);
 
@@ -34,9 +38,9 @@
 
   /* Stars */
   --star-on:       #9a6610;
-  --star-off:      #908c88;   /* ~3.2:1 on white — passes UI component threshold */
+  --star-off:      #908c88;
 
-  /* Fonts — system stack, no external dependency */
+  /* Fonts */
   --font-display:  system-ui, -apple-system, sans-serif;
   --font-body:     system-ui, -apple-system, sans-serif;
   --font-mono:     ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', 'Courier New', monospace;
@@ -54,16 +58,50 @@
   --space-16: 64px;
 }
 
+/* ── Dark mode ──────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:            #131210;
+    --bg-card:       #1a1918;
+    --bg-hover:      rgba(192, 64, 16, 0.08);
+    --bg-subtle:     #1e1d1b;
+    --bg-code:       #0c0b0a;
+    --bg-code-inline: rgba(192, 64, 16, 0.12);
+
+    --text:          #ece8e4;
+    --body:          #b8b4b0;
+    --muted:         #8a8684;
+    --dim:           #6a6664;
+
+    --accent:        #e05828;
+    --accent-warm:   #f07040;
+    --accent-bg:     rgba(224, 88, 40, 0.10);
+
+    --border:        #2a2826;
+    --border-strong: #3a3836;
+
+    --ok:            #3daa6c;
+    --ok-bg:         rgba(61, 170, 108, 0.10);
+    --warn:          #c8922a;
+    --warn-bg:       rgba(200, 146, 42, 0.10);
+    --danger:        #e04444;
+    --danger-bg:     rgba(224, 68, 68, 0.10);
+
+    --star-on:       #c8922a;
+    --star-off:      #5a5654;
+  }
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
 
-/* Keyboard focus — required for accessibility (HIG: 2-3px ring, 2px offset) */
+/* Keyboard focus */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
-/* Inputs/selects have custom focus via border-color change — suppress ring */
 .op-input:focus-visible,
 .op-select:focus-visible {
   outline: none;
@@ -80,12 +118,67 @@ body {
   -moz-osx-font-smoothing: auto;
 }
 
+/* Subtle warm gradient on page background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 600px;
+  background: linear-gradient(
+    180deg,
+    rgba(192, 64, 16, 0.02) 0%,
+    rgba(192, 64, 16, 0.008) 40%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* ── Layout ──────────────────────────────────────── */
 
 .op-page {
   max-width: 880px;
   margin: 0 auto;
   padding: 0 var(--space-12) 96px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Narrower container for spec/docs pages */
+.op-prose {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 var(--space-12) 96px;
+  position: relative;
+  z-index: 1;
+}
+
+.op-prose p {
+  font-size: 17px;
+  color: var(--body);
+  line-height: 1.7;
+  margin-bottom: var(--space-5);
+}
+
+.op-prose h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-5);
+}
+
+.op-prose h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-3);
 }
 
 /* ── Header ──────────────────────────────────────── */
@@ -228,6 +321,66 @@ body {
   max-width: 560px;
 }
 .op-hero p strong { color: var(--text); font-weight: 500; }
+
+/* ── Code blocks ────────────────────────────────── */
+
+.op-code-block {
+  background: var(--bg-code);
+  color: #e8e4e0;
+  padding: var(--space-5) var(--space-6);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.75;
+  overflow-x: auto;
+  margin-bottom: var(--space-6);
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+}
+
+.op-code-block .op-code-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5a5654;
+  padding: var(--space-2) var(--space-3);
+  user-select: none;
+}
+
+.op-code-block .op-code-comment { color: #6a6664; }
+.op-code-block .op-code-key     { color: #e8c47a; }
+.op-code-block .op-code-string  { color: #a8d8a0; }
+.op-code-block .op-code-number  { color: #c8a8e0; }
+.op-code-block .op-code-url     { color: #80b8d8; }
+
+/* Copy button for code blocks */
+.op-code-copy {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #6a6664;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: var(--space-1) var(--space-3);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.op-code-copy:hover { color: #b8b4b0; border-color: rgba(255,255,255,0.15); }
+
+/* Inline code */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--accent);
+  background: var(--bg-code-inline);
+  padding: 2px 6px;
+}
 
 /* ── Search ──────────────────────────────────────── */
 
@@ -386,6 +539,75 @@ body {
 .op-hbar-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-1); }
 .op-hbar-name { font-size: 14px; color: var(--body); text-transform: capitalize; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .op-hbar-count { font-family: var(--font-mono); font-size: 12px; color: var(--dim); flex-shrink: 0; }
+
+/* ── Tables ─────────────────────────────────────── */
+
+.op-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  margin-bottom: var(--space-6);
+}
+
+.op-table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin: 0;
+}
+
+.op-table-wrap thead th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 2px solid var(--border-strong);
+  text-align: left;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  background: var(--bg-card);
+  z-index: 1;
+}
+
+.op-table-wrap tbody td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  color: var(--body);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.op-table-wrap tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Alternating rows */
+.op-table-wrap tbody tr:nth-child(even) {
+  background: var(--bg-subtle);
+}
+
+.op-table-wrap tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.op-table-wrap td code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--bg-code-inline);
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+
+.op-table-wrap td.mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+}
 
 /* ── List ────────────────────────────────────────── */
 
@@ -574,7 +796,7 @@ body {
 .op-footer a { color: var(--dim); text-decoration: none; }
 .op-footer a:hover { color: var(--accent); }
 
-/* ── Reduced motion — respect user preference ────── */
+/* ── Reduced motion ──────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -588,9 +810,10 @@ body {
 /* ── Mobile ──────────────────────────────────────── */
 
 @media (max-width: 640px) {
-  .op-page  { padding: 0 var(--space-6) 72px; }
+  .op-page   { padding: 0 var(--space-6) 72px; }
+  .op-prose  { padding: 0 var(--space-6) 72px; }
   .op-header { margin-bottom: var(--space-10); }
-  .op-hero  { padding: var(--space-10) 0 var(--space-10); }
+  .op-hero   { padding: var(--space-10) 0 var(--space-10); }
   .op-hero h1 { font-size: 36px; }
   .op-hero h2 { font-size: 22px; }
   .op-hero p  { font-size: 16px; }
@@ -598,4 +821,5 @@ body {
   .op-search-row { flex-direction: column; }
   .op-btn { justify-content: center; }
   .op-tabs { overflow-x: auto; }
+  .op-code-block { font-size: 13px; padding: var(--space-4); }
 }
